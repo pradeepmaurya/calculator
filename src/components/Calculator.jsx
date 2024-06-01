@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { evaluate } from "mathjs";
 import "./calculator.css";
+
 function Calculator() {
   const [result, setResult] = useState("");
 
   const setValue = (event) => {
     setResult(result.concat(event.target.value));
   };
+
   const resolve = () => {
     try {
-      setResult(eval(result).toString());
+      setResult(evaluate(result).toString());
     } catch (error) {
       setResult("Error");
     }
@@ -21,10 +24,11 @@ function Calculator() {
   const clearResult = () => {
     setResult("");
   };
+
   return (
     <div className="main">
       <form>
-        <input type="text" value={result} />
+        <input type="text" value={result} readOnly />
       </form>
       <div className="buttons">
         <button className="clear cut-btn" onClick={clearResult}>
